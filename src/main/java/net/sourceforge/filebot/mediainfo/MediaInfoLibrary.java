@@ -1,6 +1,4 @@
-
 package net.sourceforge.filebot.mediainfo;
-
 
 import static java.util.Collections.*;
 

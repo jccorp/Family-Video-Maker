@@ -10,7 +10,6 @@ public class Tester {
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
 		//Got in milliseconds
 		/*String s="85404.807111";
 		Double.parseDouble(s);

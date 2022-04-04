@@ -13,7 +13,6 @@ public class TestTrigger {
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
 		String strFile="D:/test.db";
 
 		Class.forName("org.sqlite.JDBC");

@@ -28,8 +28,7 @@ public class MovieMaker2014 implements VideoOutputInterface {
 	
 	public MovieMaker2014(String DestFile) throws Exception{
 		this.DestFile=new File(DestFile);
-		
-		
+
 		//System.out.println(this.getClass().getResource("").getPath());
 		FileUtils.copyURLToFile(this.getClass().getResource("CuchiFilm.wlmp"), this.DestFile);
 		
@@ -94,9 +93,7 @@ public class MovieMaker2014 implements VideoOutputInterface {
 		ImageClip.appendChild(BoundProperties);
 		//inserto al principio de Extents
 		Extents.insertBefore(ImageClip, Extents.getFirstChild());
-		
-		
-		
+
 		//añadirlo en El Extent Refs de Extent Selector
 		//para buscar bien el XPATH http://stackoverflow.com/questions/4524586/retrieve-value-of-xml-node-and-node-attribute-using-xpath-in-jaxp
 		Node ExtentSelector1ExtentRefs = doc.getElementsByTagName("ExtentRefs").item(0);
@@ -110,8 +107,7 @@ public class MovieMaker2014 implements VideoOutputInterface {
 		System.out.println("====Inserted VIDEO:"+Video.getAbsolutePath());
 		//para los datos de tamaño
 		
-	
-		
+
 		//creo un media Item
 		//mediaItems
 		Node MediaItems = doc.getElementsByTagName("MediaItems").item(0);
@@ -172,9 +168,7 @@ public class MovieMaker2014 implements VideoOutputInterface {
 		VideoClip.appendChild(BoundProperties);
 		//inserto al principio de Extents
 		Extents.insertBefore(VideoClip, Extents.getFirstChild());
-		
-		
-		
+
 		//añadirlo en El Extent Refs de Extent Selector
 		//para buscar bien el XPATH http://stackoverflow.com/questions/4524586/retrieve-value-of-xml-node-and-node-attribute-using-xpath-in-jaxp
 		Node ExtentSelector1ExtentRefs = doc.getElementsByTagName("ExtentRefs").item(0);
@@ -183,7 +177,6 @@ public class MovieMaker2014 implements VideoOutputInterface {
 		ExtentSelector1ExtentRefs.appendChild(ExtentRef);
 
 	}
-
 	
 	public void write() throws Exception{
 		 // Use a Transformer for output
@@ -259,9 +252,7 @@ public class MovieMaker2014 implements VideoOutputInterface {
 		AudioClip.appendChild(BoundProperties);
 		//inserto al principio de Extents
 		Extents.insertBefore(AudioClip, Extents.getFirstChild());
-		
-		
-		
+
 		//añadirlo en El Extent Refs de Extent Selector
 		//para buscar bien el XPATH http://stackoverflow.com/questions/4524586/retrieve-value-of-xml-node-and-node-attribute-using-xpath-in-jaxp
 		//si bien este pájaro va en el extendID2
@@ -269,9 +260,6 @@ public class MovieMaker2014 implements VideoOutputInterface {
 		Element ExtentRef = doc.createElement("ExtentRef");
 		ExtentRef.setAttribute("id", this.ExtentId+"");
 		ExtentSelector1ExtentRefs.appendChild(ExtentRef);
-
-	
-		
 	}
 	
 	
@@ -280,7 +268,6 @@ public class MovieMaker2014 implements VideoOutputInterface {
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
 		MovieMaker2014 mm= new MovieMaker2014("d:\\out.wlmp");
 		mm.MediaItemId=1;
 		

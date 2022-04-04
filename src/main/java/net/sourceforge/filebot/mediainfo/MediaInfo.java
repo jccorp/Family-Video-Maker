@@ -1,7 +1,4 @@
-
 package net.sourceforge.filebot.mediainfo;
-
-
 
 import java.io.Closeable;
 import java.io.File;
@@ -19,7 +16,6 @@ import com.sun.jna.NativeLibrary;
 import com.sun.jna.Platform;
 import com.sun.jna.Pointer;
 import com.sun.jna.WString;
-
 
 public class MediaInfo implements Closeable {
 	

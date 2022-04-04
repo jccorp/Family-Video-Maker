@@ -10,23 +10,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import lnkparser.LnkParser;
-
-
 import org.apache.commons.io.FilenameUtils;
-
-import cuchiVideo.interfaces.FileMaker;
-import cuchiVideo.tools.VideoTools;
-import cuchiVideo.logica.SelectMediaAlgorithm;
 
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
-
 import com.drew.metadata.exif.ExifSubIFDDirectory;
 
+import lnkparser.LnkParser;
+
+import cuchiVideo.interfaces.FileMaker;
+import cuchiVideo.tools.VideoTools;
+import cuchiVideo.logica.SelectMediaAlgorithm;
 
 public class Init {
 
@@ -58,7 +54,7 @@ public class Init {
 	 *
 	 */
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
+
 		if (args.length != 6){ 
 			System.out.println("La cagaste. Mal argumentos." + args.length);
 			System.out.println(args[1]);
@@ -85,14 +81,14 @@ public class Init {
 		System.out.println("Duracion Foto:\t"+ args[2]+"seg");
 		System.out.println("Duracion Video:\t"+ args[3]+"seg");
 		
-		SetUp(strFile);
+		setUp(strFile);
 		
 		if (escanea){
 			//creamos la base de datos sqlite
-			CreaBD(strFile);
+			creaBD(strFile);
 
 			//leemos todos los ficheros y los metemos en BD
-			ProcesaFicheros(args[0]);
+			procesaFicheros(args[0]);
 		}
 
 		//se han quedado fuera
@@ -140,7 +136,7 @@ public class Init {
 		 System.out.println("Se han quedado fuera "+ rs.getString(1) + " ficheros");
 	}
 
-	private static void ProcesaFicheros(String Directorio) throws Exception {
+	private static void procesaFicheros(String Directorio) throws Exception {
 		
 		listf(Directorio);
 	}
@@ -163,7 +159,7 @@ public class Init {
 	        if (file.isFile()) {
 	        	//a añadir a la base de datos
 	        	try{
-	            	InsertFile(file);
+	            	insertFile(file);
 	        	}
 	        	catch(Exception e){
 	        		e.printStackTrace();
@@ -179,8 +175,7 @@ public class Init {
 	}
 
 
-	private static void InsertFile(File file) throws Exception  {
-		// TODO Auto-generated method stub
+	private static void insertFile(File file) throws Exception  {
 
 		//System.out.print("Procesando fichero:"+file);
 		//check what it is
@@ -196,7 +191,7 @@ public class Init {
 			long Size= file.length();
 			//DATE
 			//este se complica, puesto que la fecha buena es la de exif
-			String Date=ImageFechaFoto(file);
+			String Date = imageFechaFoto(file);
 			
 			System.out.println("DATE="+Date);
 			
@@ -261,13 +256,14 @@ public class Init {
 	}
 
 
-	private static String ImageFechaFoto(File file) throws ImageProcessingException, IOException{
+	private static String imageFechaFoto(File file) throws ImageProcessingException, IOException{
 		//ya se que es foto
 		System.out.println("File:"+ file.getAbsolutePath());
 		Metadata metadata = ImageMetadataReader.readMetadata( file );
 
         // Read Exif Data
-        Directory directory = metadata.getDirectory( ExifSubIFDDirectory.class );
+        //Directory directory = metadata.getDirectory( ExifSubIFDDirectory.class );
+		Directory directory = metadata.getFirstDirectoryOfType( ExifSubIFDDirectory.class );
         if( directory != null ) {
             // Read the date
             Date date = directory.getDate( ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL );
@@ -318,7 +314,7 @@ public class Init {
 		}
 	}
 
-	public static void SetUp(String strFile) throws Exception{
+	public static void setUp(String strFile) throws Exception{
 		Class.forName("org.sqlite.JDBC");
 		c = DriverManager.getConnection("jdbc:sqlite:"+strFile);
      	System.out.print("Opened database successfully in "+ strFile +".");
@@ -326,7 +322,7 @@ public class Init {
      	stmt = c.createStatement();
 	}
 
-	public static void CreaBD(String strFile){
+	public static void creaBD(String strFile){
 		try {
 			String sql = "CREATE TABLE IMAGES " +
 		                   "(FILE           TEXT    NOT NULL, " + 
@@ -396,4 +392,3 @@ public class Init {
 	}
 
 }
-
