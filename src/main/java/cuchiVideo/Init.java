@@ -232,7 +232,7 @@ public class Init {
 			//length y quality de la funcion
 			long [] temp;
 			
-			temp=VideoTools.GetVideoLenghtAndRate(file);
+			temp = VideoTools.GetVideoLenghtAndRate(file);
 
            /* String sql = "INSERT INTO VIDEOS (FILE,SIZE,DATE,LENGHT,QUALITY,WIDTH,HEIGHT) " +
 		            "VALUES ('"+file.getAbsolutePath()+"',"+ Size +",'"+Date+"',"+temp[0]+","+

@@ -3,9 +3,25 @@ package cuchiVideo.tools;
 import java.io.File;
 
 import net.sourceforge.filebot.mediainfo.MediaInfo;
+import org.bytedeco.javacv.OpenCVFrameGrabber;
 
 
 public class VideoTools {
+
+    public static long[] GetVideoLengthAndRate(File file){
+
+        OpenCVFrameGrabber frameGrabber = new OpenCVFrameGrabber(file);
+        frameGrabber.getFrameRate();
+
+        long [] retorno = new long [4];
+
+        retorno[0] = frameGrabber.getLengthInTime();
+        retorno[1] = frameGrabber.getVideoBitrate();
+        retorno[2] = frameGrabber.getImageWidth();
+        retorno[3] = frameGrabber.getImageHeight();
+
+        return retorno;
+    }
 
 	/**
 	 * @param file
@@ -20,6 +36,7 @@ public class VideoTools {
     public static long[] GetVideoLenghtAndRate(File file) {
     	//devuelve en el primero la duracion y en el segundo el bitrate
         // first we create a Xuggler container object
+
 
     	System.out.println("FIle:"+ file.getAbsolutePath());
         long [] retorno = new long [4];
@@ -39,7 +56,7 @@ public class VideoTools {
 	        //parece que lo resolvi metiendo en la carpeta  C:\Users\yocuc\git\Family-Video-Maker\CuchiVideoSlideshow\target\classes\win32-x86
 	        //el media info de arquitecrau de 32 bits descargado de la web
    	        //System.load("C:\\Program Files\\MediaInfo\\MediaInfo.dll");
-   	        //System.out.println("Librer�a Cargada");
+   	        //System.out.println("Librería Cargada");
         } catch (Exception e) {
             System.err.println("Native code library failed to load.\n" + e);
             System.exit(1);
