@@ -1,24 +1,37 @@
 package cuchiVideo.tools;
 
 import java.io.File;
+import java.util.Map;
 
 import net.sourceforge.filebot.mediainfo.MediaInfo;
+import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
 
 
 public class VideoTools {
 
-    public static long[] GetVideoLengthAndRate(File file){
+    public static long[] GetVideoLengthAndRate(File file) throws FrameGrabber.Exception {
 
         OpenCVFrameGrabber frameGrabber = new OpenCVFrameGrabber(file);
-        frameGrabber.getFrameRate();
+
 
         long [] retorno = new long [4];
-
+        frameGrabber.start();
+        System.out.println("Rate-->"+frameGrabber.getFrameRate());
         retorno[0] = frameGrabber.getLengthInTime();
         retorno[1] = frameGrabber.getVideoBitrate();
         retorno[2] = frameGrabber.getImageWidth();
         retorno[3] = frameGrabber.getImageHeight();
+
+
+        System.out.println("time in seconds:"+ (frameGrabber.getLengthInFrames() / frameGrabber.getFrameRate()));
+        //m.forEach((k,l) -> System.out.println("Llave:"+k+" Valor:"+l));
+
+        //System.out.println("Metadata:"+frameGrabber.get);
+
+        frameGrabber.stop();
+
+
 
         return retorno;
     }

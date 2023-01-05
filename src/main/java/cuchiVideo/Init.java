@@ -287,8 +287,7 @@ public class Init {
 
 
 	private static String getMime(File file) throws SQLException {
-		// TODO Auto-generated method stub
-		
+
 		String ext = FilenameUtils.getExtension(file.getAbsolutePath());
 		if (ext.equalsIgnoreCase("jpg") || ext.equalsIgnoreCase("jpeg") 
 				 //|| ext.equalsIgnoreCase("png") 
